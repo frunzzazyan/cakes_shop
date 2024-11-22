@@ -1,0 +1,60 @@
+header{
+    width: 100%;
+    height: 160px;
+    /* border: 2px solid black; */
+    display: flex;
+    flex-direction: column;
+    color: orange;
+    align-items: center;
+    justify-content: space-around;
+    &>.contact-logo{
+        width: 100%;
+        height: 100px;
+        /* border: 2px solid white; */
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-inline: 20px;
+        &>h1{
+            font-family: cursive;
+            font-weight: 100;
+        }
+        &>.sites{
+            width: 130px;
+            border: 2px solid white;
+            height: 40px;
+        }
+        &>.phone{
+            width: 300px;
+            border: 2px solid orange;
+            height: 50px;
+            font-size: 25px;
+            display: flex;
+            align-items: center;
+            transition: 1s;
+            justify-content: center;
+        }
+        &>.phone:hover{
+            transform: scale(1.1);
+        }
+    }
+    &>nav{
+        width: 100%;
+        height: 60px;
+        /* border: 2px solid white; */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 30px;
+        &>a{
+            font-size: 20px;
+            color: white;
+            transition: 1s;
+        }
+        &>a:hover{
+            color: orange;
+            border-bottom: 2px solid orange;
+            transform:scale3d(1.1);
+        }
+    }
+}
