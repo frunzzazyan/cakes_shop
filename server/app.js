@@ -5,11 +5,12 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var authorizationRouter = require('./routes/authorization.js');
 
 const cors = require("cors")
 const mongoose = require("mongoose")
 const ProductsServices = require("./services/ProductsServices.js")
+const AuthorizationServices = require('./services/AuthorizationServices.js');
 const models = require("./models");
 // const CommentsServices = require('./services/CommentsServices.js');
 
@@ -34,16 +35,17 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.locals.models = {
-  products : models.products
+  products : models.products,
+  users : models.users
 }
 
 app.locals.services = {
-  products : new ProductsServices(app.locals.models)
-  // comments : new CommentsServices(app.locals.models)
+  products : new ProductsServices(app.locals.models),
+  authorization : new AuthorizationServices(app.locals.models)
 }
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use("/auth", authorizationRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

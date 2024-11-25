@@ -1,3 +1,4 @@
 module.exports = {
-    products : require("./ProductModel.js")
+    products : require("./ProductModel.js"),
+    users : require("./UserModel.js")
 }
