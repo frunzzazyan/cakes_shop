@@ -1,9 +1,9 @@
 class ProductsControllers{
     async getProducts(req,res){
         try {
-            const {page,sort} = req.query
+            const {page,sort,min,max} = req.query
             if(page){
-                const products = await req.app.locals.services.products.getProducts(page, sort)
+                const products = await req.app.locals.services.products.getProducts(page, sort, min, max)
                 res.json(products)
             }
             else{
@@ -23,6 +23,7 @@ class ProductsControllers{
             res.json(error)
         }
     }
+    
 }
 
 module.exports = ProductsControllers

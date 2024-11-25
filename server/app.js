@@ -15,7 +15,10 @@ const models = require("./models");
 
 var app = express();
 
-mongoose.connect("mongodb+srv://user2000:passw0Rd@cluster0.kogrl.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
+// mongoose.connect("mongodb+srv://user2000:passw0Rd@cluster0.kogrl.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
+// .then(()=>console.log("db ok"))
+// .catch((err)=>console.log("db err"))
+mongoose.connect("mongodb://localhost:27017/myDB")
 .then(()=>console.log("db ok"))
 .catch((err)=>console.log("db err"))
 

@@ -14,7 +14,12 @@ const Products = () => {
     const [products, dispatch] = useReducer(reducer, [])
     const [pageCount, setPageCount] = useState(0)
     const [page, setPage] = useState(11)
-    const [sort, setSort] = useState(null)
+    const [sort, setSort] = useState("")
+    const [inputMin,setInputMin] = useState("")
+    const [inputMax,setInputMax] = useState("")
+
+
+
     useEffect(()=>{
       fetch("http://localhost:3000?page=1")
       .then(res=>res.json())
@@ -28,7 +33,7 @@ const Products = () => {
 
 
     function handlePageIdx(idx){
-        fetch(`http://localhost:3000?sort=${sort}&page=${idx}`)
+        fetch(`http://localhost:3000?sort=${sort}&page=${idx}&min=${inputMin}&max=${inputMax}`)
         .then(res=>res.json())
         .then(res=>dispatch({type : "GET_PRODUCTS", payload : res}))
     }
@@ -38,13 +43,13 @@ const Products = () => {
         case "previous":
           if(page<12)return
           setPage(page-1)
-          fetch(`http://localhost:3000?sort=${sort}&page=${page}`)
+          fetch(`http://localhost:3000?sort=${sort}&page=${page}&min=${inputMin}&max=${inputMax}`)
           .then(res=>res.json())
           .then(res=>dispatch({type : "GET_PRODUCTS", payload : res}))
           break
         case "next":
           setPage(page+1)
-          fetch(`http://localhost:3000?sort=${sort}&page=${page}`)
+          fetch(`http://localhost:3000?sort=${sort}&page=${page}&min=${inputMin}&max=${inputMax}`)
           .then(res=>res.json())
           .then(res=>dispatch({type : "GET_PRODUCTS", payload : res}))
           break
@@ -53,11 +58,19 @@ const Products = () => {
 
     function handleSort(type){
       setSort(type)
-          fetch(`http://localhost:3000?sort=${type}&page=1`)
+          fetch(`http://localhost:3000?sort=${type}&page=1&min=${inputMin}&max=${inputMax}`)
         .then(res=>res.json())
         .then(res=>dispatch({type : "GET_PRODUCTS_SORT", payload : res}))
     }
-    // sortttttttt
+    
+    function handlePriceSearch(){
+      console.log(inputMin)
+      console.log(inputMax)
+
+      fetch(`http://localhost:3000?sort=${sort}&page=1&min=${inputMin}&max=${inputMax}`)
+        .then(res=>res.json())
+        .then(res=>dispatch({type : "GET_PRODUCTS_SORT", payload : res}))
+    }
 
   return (
     <>
@@ -65,7 +78,7 @@ const Products = () => {
         <div className="products">
         <div className="products-pagination">
             <div className="products">
-                {products.map(elem=>{
+              {(products.length >= 1 ? products.map(elem=>{
                     return <div key={elem._id} className="item">
                       <div className="image">
                         <img src="" alt="" />
@@ -74,7 +87,8 @@ const Products = () => {
                         <p>{elem.description}</p>  
                         <span>price_{elem.price}$</span> 
                     </div>
-                })}
+                }) : <h1>datark</h1>)}
+                
             </div>
             <div className="pagination">
               <button onClick={()=>handlePage("previous")}>{"<<"+(page-1)}</button>
@@ -95,10 +109,10 @@ const Products = () => {
           <div className="price">
             <h5>Price</h5>
             <div className="inputs">
-            <input type="number" name='min' placeholder='Min'/>
-            <input type="number" name='max' placeholder='Max'/>
+            <input onChange={(e)=> setInputMin(e.target.value) } type="number" value={inputMin} name='min' placeholder='Min'/>
+            <input onChange={(e)=> setInputMax(e.target.value) } type="number" value={inputMax} name='max' placeholder='Max'/>
             </div>
-            <button>Search</button>
+            <button onClick={()=>handlePriceSearch()}>Search</button>
           </div>
           <div className="sort">
             <button onClick={()=>handleSort(1)}>min-max</button>
