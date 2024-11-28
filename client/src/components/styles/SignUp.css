@@ -1,0 +1,76 @@
+.register {
+    width: 800px;
+    height: 500px;
+    background-color: orange;
+    box-shadow: 0 0 30px 10px rgb(0, 0, 0);
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: space-around;
+    padding-left: 30px;
+    position: relative;
+    padding-block: 40px;
+    &>.input-div{
+        width: 70%;
+        &>input{
+            width: 100%;
+            height: 50px;
+            font-size: 20px;
+        }
+    }
+
+    &>.name {
+        width: 70%;
+        height: 70px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        &>.input-div{
+            width: 49%;
+            &>input{
+                width: 100%;
+                height: 50px;
+            }   
+    }
+    }
+
+    &>.age {
+        width: 70%;
+        height: 70px;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        &>.input-div{
+            width: 33%;
+            &>input{
+                width: 100%;
+                height: 50px;
+            }
+         }
+    }
+    &>[type = "submit"]{
+    position: absolute;
+    right: 10px;
+    width: 200px;
+    height: 400px;
+    background-color: black;
+    color: white;
+    font-size: 25px;
+    font-family: cursive;
+    cursor: pointer;
+    transition: 1s;
+    }
+    &>[type = "submit"]:hover{
+        background-color: white;
+        color: black;
+        transform: scale(1.0);
+        border: 2px solid black;
+    }
+}
+
+input{
+    border-radius: 20px;
+    padding-left: 10px;
+    background-color: black;
+}

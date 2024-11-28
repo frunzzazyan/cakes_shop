@@ -21,7 +21,7 @@ const Products = () => {
 
 
     useEffect(()=>{
-      fetch("http://localhost:3000?page=1")
+      fetch("http://localhost:3000?sort=&page=1&min=&max=")
       .then(res=>res.json())
       .then(res=>dispatch({type : "GET_PRODUCTS", payload : res}))
 
