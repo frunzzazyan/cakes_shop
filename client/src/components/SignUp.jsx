@@ -16,41 +16,49 @@ let initialValue = {
   rpassword : "" 
 }
 
-function mySubmit(values,{resetForm}){
-
-  function calculateAge(values) {
-      const birthDate = new Date(values.year, values.month - 1, values.day); // JavaScript-ում ամիսները սկսվում են 0-ից
-      const currentDate = new Date();
-      
-      let age = currentDate.getFullYear() - birthDate.getFullYear();
-      
-      const isBirthdayPassed = 
-          currentDate.getMonth() > birthDate.getMonth() ||
-          (currentDate.getMonth() === birthDate.getMonth() && currentDate.getDate() >= birthDate.getDate());
-  
-      if (!isBirthdayPassed) {
-          age -= 1; 
-      }
-  
-      return age;
-  }
-  let ageUser = calculateAge(values)
-  if(ageUser < 14 )alert("You are too young to enter. )")
-  let newUser = {
-    ...values,
-    age : ageUser
-  }
-  fetch("http://localhost:3000/auth/register", {
-    method : "POST",
-    headers : {
-        "Content-Type" : "application/json"
-    },
-    body : JSON.stringify(newUser)
-  })
-  
-  }
 
 const SignUp = ({setActive,setAuthorization}) => {
+
+    function mySubmit(values){
+    
+      function calculateAge(values) {
+          const birthDate = new Date(values.year, values.month - 1, values.day); // JavaScript-ում ամիսները սկսվում են 0-ից
+          const currentDate = new Date();
+          
+          let age = currentDate.getFullYear() - birthDate.getFullYear();
+          
+          const isBirthdayPassed = 
+              currentDate.getMonth() > birthDate.getMonth() ||
+              (currentDate.getMonth() === birthDate.getMonth() && currentDate.getDate() >= birthDate.getDate());
+      
+          if (!isBirthdayPassed) {
+              age -= 1; 
+          }
+      
+          return age;
+      }
+      let ageUser = calculateAge(values)
+      if(ageUser < 14 )alert("You are too young to enter. )")
+        let newUser = {
+            ...values,
+            age : ageUser
+        }
+    
+        console.log(newUser);
+        
+    
+      fetch("http://localhost:3000/auth/register", {
+        method : "POST",
+        headers : {
+            "Content-Type" : "application/json"
+        },
+        body : JSON.stringify(newUser)
+        })
+    
+        setActive(true)
+        setAuthorization(true)
+      }
+
   return (
     <>
       <Formik initialValues={initialValue} validationSchema={schema} onSubmit={mySubmit}>
@@ -92,10 +100,7 @@ const SignUp = ({setActive,setAuthorization}) => {
                             <input style={{ borderColor: (errors.rpassword && touched.rpassword ? "crimson" : "black") }} onChange={handleChange} onBlur={handleBlur} value={values.rpassword} type="password" placeholder="password" name="rpassword" id="rpassword" />
                             <span>{errors.rpassword && touched.rpassword ? errors.rpassword : ""}</span>
                         </div>
-                        <input onClick={()=>{
-                            setActive(true)
-                            setAuthorization(true)
-                            }} className='scale-up-ver-center' disabled={!!Object.keys(errors).length} type="submit" value="Register"/>
+                        <input className='scale-up-ver-center' disabled={!!Object.keys(errors).length} type="submit" value="Register"/>
                     </form>
                 }}
             </Formik>

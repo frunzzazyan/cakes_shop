@@ -1,8 +1,12 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import "./styles/Header.css"
 import {Link} from "react-router-dom"
 
 const Header = () => {
+    const [token, setToken] = useState(undefined)
+    useEffect(()=>{
+        setToken(localStorage.getItem("token"))
+    },[])
   return (
     <>
         <header>
@@ -19,8 +23,18 @@ const Header = () => {
                 <Link to="/">Home</Link>
                 <Link to="/cakes">Cakes</Link>
                 <Link to="/contact">Contact US</Link>
-                <Link to="/cart">Cart</Link>
+                {(token? 
+                <>
+                <Link to="/profile">Profile</Link>
+                <Link to="/" onClick={()=>{
+                    localStorage.removeItem("token")
+                    localStorage.removeItem("admin")
+                    location.pathname = "/"
+                    }}>LogOut</Link>
+                </>
+                : 
                 <Link to="/authorization">Login/SignUp</Link>
+                )}
             </nav>
         </header>
     </>

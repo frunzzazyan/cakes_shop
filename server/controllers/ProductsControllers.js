@@ -24,6 +24,15 @@ class ProductsControllers{
         }
     }
     
+    async getProduct(req,res){
+        try {
+            const product = await req.app.locals.services.products.getProduct(req.params.id)
+            res.json(product)
+        } catch (error) {
+            res.json(error)
+        }
+    }
+    
 }
 
 module.exports = ProductsControllers

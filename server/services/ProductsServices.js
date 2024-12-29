@@ -30,7 +30,11 @@ class ProductsServices{
     }
     async getProductsCount(){
             const productsCount = await this.models.products.find()
-            return productsCount
+            return {productsCount : productsCount.length}
+    }
+    async getProduct(id){
+        const product = await this.models.products.findById(id)
+        return product
     }
 }
 

@@ -1,16 +1,15 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
 
 const ProductsControllers = require("../controllers/ProductsControllers.js")
-const controllersProducts = new ProductsControllers()
+const controllers = new ProductsControllers()
 
-const CommentsControllers = require("../controllers/CommentsControllers.js")
-const controllersComments = new CommentsControllers()
 
 /* GET home page. */
-router.get('/', controllersProducts.getProducts);
-router.get('/count', controllersProducts.getProductsCount);
+router.get('/', controllers.getProducts);
+router.get('/count', controllers.getProductsCount);
+router.get("/:id", controllers.getProduct)
 // router.get('/firstMessage', controllersComments.getFirstMessage);
 
 module.exports = router;

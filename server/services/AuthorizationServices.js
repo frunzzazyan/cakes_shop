@@ -28,7 +28,8 @@ class AuthorizationServices{
 
     async authMe(id){
         const user = await this.models.users.findById(id)
-        return user
+        const {password, __v, ...userData} = user._doc
+        return userData
     }
 }
 

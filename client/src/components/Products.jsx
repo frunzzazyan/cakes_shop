@@ -27,7 +27,7 @@ const Products = () => {
 
       fetch("http://localhost:3000/count")
       .then(res=>res.json())
-      .then(res=>setPageCount(res.length/10))
+      .then(res=>setPageCount(res.productsCount))
       
     },[])
 
@@ -71,7 +71,13 @@ const Products = () => {
         .then(res=>res.json())
         .then(res=>dispatch({type : "GET_PRODUCTS_SORT", payload : res}))
     }
-
+    
+    function handleOpenPage(id){
+      fetch(`http://localhost:3000/${id}`)
+      .then(res=>res.json())
+      .then(res=>localStorage.setItem("product",JSON.stringify(res)))
+      location.pathname = "/item"
+    }
   return (
     <>
         <Header/>
@@ -79,12 +85,11 @@ const Products = () => {
         <div className="products-pagination">
             <div className="products">
               {(products.length >= 1 ? products.map(elem=>{
-                    return <div key={elem._id} className="item">
+                    return <div onClick={()=>handleOpenPage(elem._id)} key={elem._id} className="item">
                       <div className="image">
                         <img src="" alt="" />
                       </div>
                         <h2>{elem.name}</h2>
-                        <p>{elem.description}</p>  
                         <span>price_{elem.price}$</span> 
                     </div>
                 }) : <h1>datark</h1>)}

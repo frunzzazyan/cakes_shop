@@ -46,7 +46,8 @@ const UserModel = new mongoose.Schema({
     phone_number : {
         type :  String,
         default : ""
-    }
+    },
+    avatar : String
 })
 
 UserModel.pre("save",async function(){

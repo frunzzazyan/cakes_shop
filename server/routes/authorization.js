@@ -1,5 +1,5 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
 const AuthorizationController = require("../controllers/AuthorizationController.js")
 const controllers = new AuthorizationController()

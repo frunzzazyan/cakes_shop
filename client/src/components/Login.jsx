@@ -20,10 +20,16 @@ function mySubmit(values,{resetForm}){
     .then(res=>res.json())
     .then(res=>{
         if(res.token != undefined){
-            location.pathname = "/"
-            localStorage.setItem("token" , res.token)
+            if(res._id == "6748d745b74fee05f24da681"){
+                location.pathname = "/admin"
+                localStorage.setItem("token" , res.token)
+                localStorage.setItem("admin" , true)
+            }else{
+                location.pathname = "/profile"
+                localStorage.setItem("token" , res.token)
+            }
         }else{
-            alert("user not found")
+            resetForm()
         }
     })
 }
